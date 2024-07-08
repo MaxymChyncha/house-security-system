@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
+from rest_framework.validators import UniqueTogetherValidator
 
 from building.models import Building, Entrance, Apartment
 
@@ -23,6 +24,12 @@ class EntranceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Entrance
         fields = ("id", "building", "number", "guard",)
+        validators = [
+            UniqueTogetherValidator(
+                queryset=Entrance.objects.all(),
+                fields=("building", "number",)
+            )
+        ]
 
     def validate(self, data):
         guard = data.get("guard")
@@ -38,6 +45,12 @@ class ApartmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Apartment
         fields = ("id", "entrance", "number",)
+        validators = [
+            UniqueTogetherValidator(
+                queryset=Apartment.objects.all(),
+                fields=("entrance", "number",)
+            )
+        ]
 
 
 class EntranceListSerializer(EntranceSerializer):
