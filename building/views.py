@@ -22,10 +22,10 @@ class BuildingViewSet(viewsets.ModelViewSet):
         return self.serializer_class
 
     def get_permissions(self):
-        if self.action in ("create", "delete",):
-            permission_classes = (IsAdminRole,)
-        else:
+        if self.action in ("list", "retrieve",):
             permission_classes = (IsAdminOrManagerRole,)
+        else:
+            permission_classes = (IsAdminRole,)
 
         return [permission() for permission in permission_classes]
 
@@ -56,7 +56,7 @@ class EntranceViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         if self.action in ("list", "retrieve"):
             permission_classes = (AllowAnyRole,)
-        elif self.action in ("create", "delete"):
+        elif self.action in ("create", "destroy"):
             permission_classes = (IsAdminRole,)
         else:
             permission_classes = (IsAdminOrManagerRole,)

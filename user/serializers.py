@@ -22,7 +22,7 @@ class UserSerializer(serializers.ModelSerializer):
             "last_name",
             "role"
         )
-        extra_kwargs = {"write_only": True}
+        extra_kwargs = {"password": {"write_only": True}}
 
     def validate_password(self, value):
         validate_password(value)
