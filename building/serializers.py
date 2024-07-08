@@ -5,7 +5,6 @@ from building.models import Building, Entrance, Apartment
 
 
 class BuildingSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Building
         fields = ("id", "address", "manager",)
@@ -21,7 +20,6 @@ class BuildingSerializer(serializers.ModelSerializer):
 
 
 class EntranceSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Entrance
         fields = ("id", "building", "number", "guard",)
@@ -37,7 +35,23 @@ class EntranceSerializer(serializers.ModelSerializer):
 
 
 class ApartmentSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Apartment
         fields = ("id", "entrance", "number",)
+
+
+class EntranceListSerializer(EntranceSerializer):
+    building = serializers.SlugRelatedField(read_only=True, slug_field="address")
+    guard = serializers.SlugRelatedField(read_only=True, slug_field="full_name")
+    apartments = ApartmentSerializer(many=True, read_only=True)
+
+    class Meta(EntranceSerializer.Meta):
+        fields = EntranceSerializer.Meta.fields + ("apartments",)
+
+
+class BuildingListSerializer(BuildingSerializer):
+    manager = serializers.SlugRelatedField(read_only=True, slug_field="full_name")
+    entrances = EntranceListSerializer(many=True, read_only=True)
+
+    class Meta(BuildingSerializer.Meta):
+        fields = BuildingSerializer.Meta.fields + ("entrances",)
