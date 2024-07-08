@@ -9,6 +9,7 @@ User = get_user_model()
 
 class CreateUserView(generics.CreateAPIView):
     serializer_class = UserSerializer
+    permission_classes = (IsAdminRole,)
 
 
 class ManageUserView(
