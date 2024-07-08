@@ -38,10 +38,6 @@ class Command(BaseCommand):
                 self.manager_group.permissions.add(permission)
                 self.guard_group.permissions.add(permission)
 
-            elif permission.codename == "assign_guard":
-                self.admin_group.permissions.add(permission)
-                self.manager_group.permissions.add(permission)
-
             else:
                 self.admin_group.permissions.add(permission)
 

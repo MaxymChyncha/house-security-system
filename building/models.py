@@ -5,7 +5,7 @@ User = get_user_model()
 
 
 class Building(models.Model):
-    address = models.CharField(max_length=255)
+    address = models.CharField(max_length=255, unique=True)
     manager = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,
@@ -13,11 +13,6 @@ class Building(models.Model):
         blank=True,
         related_name="buildings",
     )
-
-    class Meta:
-        permissions = (
-            ("assign_manager", "Assign Manager"),
-        )
 
     def __str__(self) -> str:
         return self.address
@@ -39,9 +34,12 @@ class Entrance(models.Model):
     )
 
     class Meta:
-        permissions = (
-            ("assign_guard", "Assign Guard"),
-        )
+        constraints = [
+            models.UniqueConstraint(
+                fields=["building", "number"],
+                name="unique_entrance_number"
+            ),
+        ]
 
     def __str__(self) -> str:
         return f"Building: {self.building.address}, Number: {self.number}"
@@ -54,6 +52,14 @@ class Apartment(models.Model):
         related_name="apartments"
     )
     number = models.PositiveIntegerField()
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["entrance", "number"],
+                name="unique_apartment_number"
+            ),
+        ]
 
     def __str__(self) -> str:
         return f"Entrance: {self.entrance.number}, Number: {self.number}"
