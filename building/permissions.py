@@ -6,7 +6,7 @@ class IsAdminRole(BasePermission):
     def has_permission(self, request, view):
         return (
             request.user.is_authenticated
-            and request.user.groups.filter(name="Admin").exists()
+            and request.user.role == "admin"
         )
 
 
@@ -14,8 +14,7 @@ class IsAdminOrManagerRole(BasePermission):
 
     def has_permission(self, request, view):
         return request.user.is_authenticated and (
-            request.user.groups.filter(name="Admin").exists()
-            or request.user.groups.filter(name="Manager").exists()
+            request.user.role == "admin" or request.user.role == "manager"
         )
 
 
@@ -23,7 +22,7 @@ class AllowAnyRole(BasePermission):
 
     def has_permission(self, request, view):
         return request.user.is_authenticated and (
-            request.user.groups.filter(name="Admin").exists()
-            or request.user.groups.filter(name="Manager").exists()
-            or request.user.groups.filter(name="Guard").exists()
+            request.user.role == "admin"
+            or request.user.role == "manager"
+            or request.user.role == "guard"
         )

@@ -6,7 +6,7 @@ from building.permissions import IsAdminRole, IsAdminOrManagerRole, AllowAnyRole
 from building.serializers import (
     BuildingSerializer,
     EntranceSerializer,
-    ApartmentSerializer
+    ApartmentSerializer, EntranceListSerializer, BuildingListSerializer
 )
 
 User = get_user_model()
@@ -15,19 +15,31 @@ User = get_user_model()
 class BuildingViewSet(viewsets.ModelViewSet):
     serializer_class = BuildingSerializer
 
-    def get_permissions(self):
-        permission_classes = (IsAdminOrManagerRole,)
+    def get_serializer_class(self):
+        if self.action in ("list", "retrieve"):
+            return BuildingListSerializer
 
-        if self.action in ("create", "delete"):
+        return self.serializer_class
+
+    def get_permissions(self):
+        if self.action in ("create", "delete",):
             permission_classes = (IsAdminRole,)
+        else:
+            permission_classes = (IsAdminOrManagerRole,)
 
         return [permission() for permission in permission_classes]
 
     def get_queryset(self):
-        queryset = Building.objects.filter(manager=self.request.user)
+        user = self.request.user
+        queryset = Building.objects.all()
 
-        if self.request.user.role == "admin":
-            queryset = Building.objects.all()
+        if user.role != "admin":
+            queryset = queryset.filter(manager=user)
+
+        queryset = queryset.prefetch_related(
+            "entrances__guard",
+            "entrances__apartments"
+        ).select_related("manager")
 
         return queryset
 
@@ -35,25 +47,35 @@ class BuildingViewSet(viewsets.ModelViewSet):
 class EntranceViewSet(viewsets.ModelViewSet):
     serializer_class = EntranceSerializer
 
-    def get_permissions(self):
-        permission_classes = (IsAdminOrManagerRole,)
+    def get_serializer_class(self):
+        if self.action in ("list", "retrieve"):
+            return EntranceListSerializer
 
+        return self.serializer_class
+
+    def get_permissions(self):
         if self.action in ("list", "retrieve"):
             permission_classes = (AllowAnyRole,)
-
-        if self.action in ("create", "delete"):
+        elif self.action in ("create", "delete"):
             permission_classes = (IsAdminRole,)
+        else:
+            permission_classes = (IsAdminOrManagerRole,)
 
         return [permission() for permission in permission_classes]
 
     def get_queryset(self):
+        user = self.request.user
         queryset = Entrance.objects.all()
 
         if self.request.user.role == "manager":
-            queryset = Entrance.objects.filter(building__manager=self.request.user)
+            queryset = Entrance.objects.filter(building__manager=user)
 
         if self.request.user.role == "guard":
-            queryset = Entrance.objects.filter(guard=self.request.user)
+            queryset = Entrance.objects.filter(guard=user)
+
+        queryset = queryset.prefetch_related(
+            "building", "apartments"
+        ).select_related("guard")
 
         return queryset
 
@@ -70,14 +92,17 @@ class ApartmentViewSet(viewsets.ModelViewSet):
         return [permission() for permission in permission_classes]
 
     def get_queryset(self):
+        user = self.request.user
         queryset = Apartment.objects.all()
 
         if self.request.user.role == "manager":
             queryset = (
-                Apartment.objects.filter(entrance__building__manager=self.request.user)
+                Apartment.objects.filter(entrance__building__manager=user)
             )
 
         if self.request.user.role == "guard":
-            queryset = Apartment.objects.filter(entrance__guard=self.request.user)
+            queryset = Apartment.objects.filter(entrance__guard=user)
+
+        queryset = queryset.select_related("entrance__building")
 
         return queryset
