@@ -29,9 +29,8 @@ class ManageUserView(
         return [permission() for permission in permission_classes]
 
     def get_queryset(self):
-        queryset = User.objects.get(pk=self.request.user.pk)
+        user = self.request.user
+        if user.role == "admin":
+            return User.objects.all()
 
-        if self.request.user.role == "admin":
-            queryset = User.objects.all()
-
-        return queryset
+        return User.objects.filter(pk=user.pk)
