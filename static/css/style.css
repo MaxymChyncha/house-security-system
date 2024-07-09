@@ -1,0 +1,13 @@
+body {
+    margin-top: 20px;
+    background: rgba(255,242,175,0.96);
+}
+
+.sidebar-nav {
+    padding: 0;
+    list-style: none;
+}
+
+.content-cell {
+  text-align: center;
+}

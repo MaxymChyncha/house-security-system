@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Users List</h1>
+  <table class="table table-bordered">
+    <tr>
+      <th class="content-cell">Role</th>
+      <th class="content-cell">Name</th>
+      <th class="content-cell">Update</th>
+      <th class="content-cell">Delete</th>
+    </tr>
+    {% for user in users %}
+      <tr>
+        <td class="content-cell">{{ user.role }}</td>
+        <td class="content-cell">{{ user.last_name }} {{ user.first_name }}</td>
+        <td class="content-cell"><a href="{% url 'user:router:staff-detail' pk=user.id %}" class="btn btn-primary"
+                                    data-method="patch">Update</a></td>
+        <td class="content-cell"><a href="{% url 'user:router:staff-detail' pk=user.id %}" class="btn btn-danger"
+                                    data-method="delete">Delete</a></td>
+      </tr>
+    {% endfor %}
+
+  </table>
+{% endblock %}
