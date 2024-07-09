@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext as _
+from auditlog.registry import auditlog
 
 
 class User(AbstractUser):
@@ -22,3 +23,6 @@ class User(AbstractUser):
 
     def __str__(self) -> str:
         return f"{self.last_name} {self.first_name} - {self.role}"
+
+
+auditlog.register(User)
