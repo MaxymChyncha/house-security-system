@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
+from auditlog.registry import auditlog
+
 User = get_user_model()
 
 
@@ -16,6 +18,9 @@ class Building(models.Model):
 
     def __str__(self) -> str:
         return self.address
+
+
+auditlog.register(Building)
 
 
 class Entrance(models.Model):
@@ -45,6 +50,9 @@ class Entrance(models.Model):
         return f"Building: {self.building.address}, Number: {self.number}"
 
 
+auditlog.register(Entrance)
+
+
 class Apartment(models.Model):
     entrance = models.ForeignKey(
         Entrance,
@@ -63,3 +71,6 @@ class Apartment(models.Model):
 
     def __str__(self) -> str:
         return f"Entrance: {self.entrance.number}, Number: {self.number}"
+
+
+auditlog.register(Apartment)
