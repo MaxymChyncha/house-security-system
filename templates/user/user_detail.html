@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load rest_framework %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    {% render_form serializer %}
+    <button type="submit">Create</button>
+  </form>
+
+  <h1>User Detail</h1>
+  <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+  <p><strong>Role:</strong> {{ user.role }}</p>
+  <p><strong>Email:</strong> {{ user.email }}</p>
+
+  {% if user.role == "manager" %}
+    <h3>Managed Buildings:</h3>
+    <ul>
+      {% for building in user.buildings.all %}
+        <li>{{ building }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if user.role == "guard" %}
+    <h3>Managed Entrance:</h3>
+    {% for entrance in user.entrances.all %}
+      <li>{{ entrance }}</li>
+    {% endfor %}
+  {% endif %}
+
+{% endblock %}

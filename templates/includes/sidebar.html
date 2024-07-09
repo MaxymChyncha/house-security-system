@@ -1,0 +1,7 @@
+<ul class="sidebar-nav list-group">
+  {% if request.user.role == "admin" or request.user.role == "manager" %}
+    <li class="list-group-item"><a href="#">Buildings</a></li>
+  {% endif %}
+  <li class="list-group-item"><a href="#">Entrances</a></li>
+  <li class="list-group-item"><a href="#">Apartments</a></li>
+</ul>
