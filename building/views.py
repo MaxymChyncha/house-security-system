@@ -6,13 +6,24 @@ from building.permissions import IsAdminRole, IsAdminOrManagerRole, AllowAnyRole
 from building.serializers import (
     BuildingSerializer,
     EntranceSerializer,
-    ApartmentSerializer, EntranceListSerializer, BuildingListSerializer
+    ApartmentSerializer,
+    EntranceListSerializer,
+    BuildingListSerializer,
 )
 
 User = get_user_model()
 
 
 class BuildingViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet for managing buildings.
+
+    Depending on role the following CRUD are available:
+
+    - Admin: all CRUD
+    - Manager: GET, POST. Only for related objects
+    - Guard: any not allowed
+    """
     serializer_class = BuildingSerializer
 
     def get_serializer_class(self):
@@ -45,6 +56,15 @@ class BuildingViewSet(viewsets.ModelViewSet):
 
 
 class EntranceViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet for managing entrances.
+
+    Depending on role the following CRUD are available:
+
+    - Admin: all CRUD
+    - Manager: GET, POST, PUT, PATCH. Only for related objects
+    - Guard: GET. Only for related objects
+    """
     serializer_class = EntranceSerializer
 
     def get_serializer_class(self):
@@ -81,6 +101,15 @@ class EntranceViewSet(viewsets.ModelViewSet):
 
 
 class ApartmentViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet for managing apartments.
+
+    Depending on role the following CRUD are available:
+
+    - Admin: all CRUD
+    - Manager: GET. Only for related objects
+    - Guard: GET. Only for related objects
+    """
     serializer_class = ApartmentSerializer
 
     def get_permissions(self):
