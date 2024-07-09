@@ -1,0 +1,265 @@
+[
+  {
+    "model": "user.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$6uM28XWOFX6ewyloJzjqmt$L+ZhofPylneoaL2iZS4sZu4ZMUNb4oIevfAdzOMn/eE=",
+      "last_login": "2024-05-08T14:14:03Z",
+      "is_superuser": true,
+      "first_name": "Admin",
+      "last_name": "Main",
+      "email": "admin@admin.com",
+      "username": "MainAdmin",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2024-01-01T00:00:00Z",
+      "role": "admin",
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$8bK58TYUFY6dw5loXzjjnv$M+ZhofPylneoaL2iZS4sZu4ZMUNb4oIevfAdzOMn/eF=",
+      "last_login": "2024-05-08T14:14:03Z",
+      "is_superuser": false,
+      "first_name": "Manager",
+      "last_name": "One",
+      "email": "manager1@company.com",
+      "username": "ManagerOne",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-02T00:00:00Z",
+      "role": "manager",
+      "groups": [
+        2
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$9cK68UZUFZ6dw6moXzjkpv$N+ZhofPylneoaL2iZS4sZu4ZMUNb4oIevfAdzOMn/eG=",
+      "last_login": "2024-05-08T14:14:03Z",
+      "is_superuser": false,
+      "first_name": "Manager",
+      "last_name": "Two",
+      "email": "manager2@company.com",
+      "username": "ManagerTwo",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-03T00:00:00Z",
+      "role": "manager",
+      "groups": [
+        2
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$1aL28XWYFX6ew1zoJzjqnv$O+ZhofPylneoaL2iZS4sZu4ZMUNb4oIevfAdzOMn/eH=",
+      "last_login": "2024-05-08T14:14:03Z",
+      "is_superuser": false,
+      "first_name": "Guard",
+      "last_name": "One",
+      "email": "guard1@company.com",
+      "username": "GuardOne",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-04T00:00:00Z",
+      "role": "guard",
+      "groups": [
+        3
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$2bM38YUZGX7ew2zoJzjqov$P+ZhofPylneoaL2iZS4sZu4ZMUNb4oIevfAdzOMn/eI=",
+      "last_login": "2024-05-08T14:14:03Z",
+      "is_superuser": false,
+      "first_name": "Guard",
+      "last_name": "Two",
+      "email": "guard2@company.com",
+      "username": "GuardTwo",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-05T00:00:00Z",
+      "role": "guard",
+      "groups": [
+        3
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": 6,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$3cN48ZVZHX8ew3zoJzjqpv$Q+ZhofPylneoaL2iZS4sZu4ZMUNb4oIevfAdzOMn/eJ=",
+      "last_login": "2024-05-08T14:14:03Z",
+      "is_superuser": false,
+      "first_name": "Guard",
+      "last_name": "Three",
+      "email": "guard3@company.com",
+      "username": "GuardThree",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-06T00:00:00Z",
+      "role": "guard",
+      "groups": [
+        3
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": 7,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$4dO58aYZIX9ew4zoJzjqpv$R+ZhofPylneoaL2iZS4sZu4ZMUNb4oIevfAdzOMn/eK=",
+      "last_login": "2024-05-08T14:14:03Z",
+      "is_superuser": false,
+      "first_name": "Guard",
+      "last_name": "Four",
+      "email": "guard4@company.com",
+      "username": "GuardFour",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-07T00:00:00Z",
+      "role": "guard",
+      "groups": [
+        3
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "building.building",
+    "pk": 1,
+    "fields": {
+      "address": "123 Main St",
+      "manager": 2
+    }
+  },
+    {
+    "model": "building.building",
+    "pk": 2,
+    "fields": {
+      "address": "456 Main St",
+      "manager": 3
+    }
+  },
+  {
+    "model": "building.entrance",
+    "pk": 1,
+    "fields": {
+      "building": 1,
+      "number": 1,
+      "guard": 4
+    }
+  },
+    {
+    "model": "building.entrance",
+    "pk": 2,
+    "fields": {
+      "building": 1,
+      "number": 2,
+      "guard": 5
+    }
+  },
+    {
+    "model": "building.entrance",
+    "pk": 3,
+    "fields": {
+      "building": 2,
+      "number": 1,
+      "guard": 6
+    }
+  },
+    {
+    "model": "building.entrance",
+    "pk": 4,
+    "fields": {
+      "building": 2,
+      "number": 2,
+      "guard": 7
+    }
+  },
+  {
+    "model": "building.apartment",
+    "pk": 1,
+    "fields": {
+      "entrance": 1,
+      "number": 1
+    }
+  },
+    {
+    "model": "building.apartment",
+    "pk": 2,
+    "fields": {
+      "entrance": 1,
+      "number": 2
+    }
+  },
+    {
+    "model": "building.apartment",
+    "pk": 3,
+    "fields": {
+      "entrance": 2,
+      "number": 1
+    }
+  },
+    {
+    "model": "building.apartment",
+    "pk": 4,
+    "fields": {
+      "entrance": 2,
+      "number": 2
+    }
+  },
+    {
+    "model": "building.apartment",
+    "pk": 5,
+    "fields": {
+      "entrance": 3,
+      "number": 1
+    }
+  },
+    {
+    "model": "building.apartment",
+    "pk": 6,
+    "fields": {
+      "entrance": 3,
+      "number": 2
+    }
+  },
+    {
+    "model": "building.apartment",
+    "pk": 7,
+    "fields": {
+      "entrance": 4,
+      "number": 1
+    }
+  },
+    {
+    "model": "building.apartment",
+    "pk": 8,
+    "fields": {
+      "entrance": 4,
+      "number": 2
+    }
+  }
+]
